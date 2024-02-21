@@ -1,4 +1,5 @@
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import { data } from "autoprefixer";
 import Head from "next/head";
 export default function Post({ post }) {
   const { title, author, body, date, slug, image, categories } = post;
@@ -43,7 +44,7 @@ export async function getStaticProps({ params }) {
       cache: new InMemoryCache(),
     });
 
-    const { data, error } = await client.query({
+    const result = await client.query({
       query: gql`
         query SinglePost($slug: String) {
           post(where: { slug: $slug }) {
@@ -68,6 +69,7 @@ export async function getStaticProps({ params }) {
         slug: params.postSlug,
       },
     });
+    const { data, error } = result || {};
 
     if (error || !data.post) {
       console.error("GraphQL Error:", error);
@@ -103,7 +105,7 @@ export async function getStaticPaths() {
       cache: new InMemoryCache(),
     });
 
-    const { data, error } = await client.query({
+    const result = await client.query({
       query: gql`
         query Posts {
           posts {
@@ -121,7 +123,8 @@ export async function getStaticPaths() {
       `,
     });
 
-    if (error || !data.posts) {
+    const { data, error } = result || {};
+    if (error || !data.posts || data.posts.length === 0) {
       console.error("GraphQL Error:", error);
       return {
         paths: [],
