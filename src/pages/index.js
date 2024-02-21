@@ -30,7 +30,7 @@ export async function getStaticProps() {
       cache: new InMemoryCache(),
     });
 
-    const { data, error } = await client.query({
+    const result = await client.query({
       query: gql`
         query Posts {
           posts {
@@ -47,7 +47,7 @@ export async function getStaticProps() {
         }
       `,
     });
-
+   const { data, error } = result || {}
     if (error) {
       console.error("GraphQL Error:", error);
       throw new Error("Error fetching data from GraphQL");
