@@ -26,7 +26,7 @@ export default function Home({ posts }) {
 export async function getStaticProps() {
   try {
     const client = new ApolloClient({
-      uri: process.env.GRAPHL_API_ACCESS,
+      uri: "https://api-eu-west-2.hygraph.com/v2/clsppk1dw0lao01w98ibhdss8/master",
       cache: new InMemoryCache(),
     });
 

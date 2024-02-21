@@ -14,8 +14,8 @@ export default function PostItems({ posts }) {
                   width={post.image.width}
                   height={post.image.height}
                   src={post.image.url}
-                  fill={true}
-                  alt="image"
+                  fill="true"
+                  alt={post.slug}
                 />
               </div>
             </Link>

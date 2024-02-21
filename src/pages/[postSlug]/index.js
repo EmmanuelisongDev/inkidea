@@ -1,5 +1,4 @@
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
-import { data } from "autoprefixer";
 import Head from "next/head";
 export default function Post({ post }) {
   const { title, author, body, date, slug, image, categories } = post;
@@ -40,7 +39,7 @@ export default function Post({ post }) {
 export async function getStaticProps({ params }) {
   try {
     const client = new ApolloClient({
-      uri: process.env.GRAPHL_API_ACCESS,
+      uri: "https://api-eu-west-2.hygraph.com/v2/clsppk1dw0lao01w98ibhdss8/master",
       cache: new InMemoryCache(),
     });
 
@@ -101,7 +100,7 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
   try {
     const client = new ApolloClient({
-      uri: process.env.GRAPHL_API_ACCESS,
+      uri: "https://api-eu-west-2.hygraph.com/v2/clsppk1dw0lao01w98ibhdss8/master",
       cache: new InMemoryCache(),
     });
 
